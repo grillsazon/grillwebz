@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Grill & Sazón</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><h1>Admin — Grill & Sazón</h1></div>
+    <nav class="nav"><a href="index.html">Ver tienda</a></nav>
+  </header>
+
+  <div id="adminPinOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;z-index:99999">
+    <div style="background:#121212;border:1px solid #333;border-radius:12px;padding:18px;max-width:360px;width:92%">
+      <h3>Acceso Admin</h3>
+      <p style="color:#bbb">Ingresa el PIN para continuar.</p>
+      <input id="pinInput" type="password" placeholder="PIN" style="width:100%;margin:8px 0"/>
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button id="pinEnterBtn" class="btn-primary">Entrar</button>
+      </div>
+    </div>
+  </div>
+
+
+  <main class="main admin">
+    <section class="card" id="envCard">
+      <strong>Base de datos: DB v6</strong>
+      <div style="display:flex;gap:8px;margin-top:6px;">
+        <button id="btnResetTabs" class="btn">Forzar 10/10/20 pestañas</button>
+      </div>
+      <small class="hint">Pulsa si ves menos pestañas en los selectores de Promos/Combos/Menú.</small>
+    </section>
+
+    <section class="card">
+      <h2>Backup (Exportar / Importar)</h2>
+      <div class="form-row" style="gap:8px;flex-direction:row;flex-wrap:wrap">
+        <button id="exportBtn" class="btn">Exportar datos</button>
+        <input id="importFile" type="file" accept=".json,application/json" />
+        <button id="importBtn" class="btn-primary">Importar datos</button>
+      </div>
+      <small class="hint">Usa esto para mover tus datos del archivo local a GitHub Pages.</small>
+    </section>
+
+
+    <section class="card">
+      <h2>Ajustes del negocio</h2>
+      <div class="form-row">
+        <label>Nombre del negocio</label>
+        <input id="bizName" type="text" placeholder="Grill & Sazón" />
+      </div>
+      <div class="form-row">
+        <label>Número de WhatsApp (solo dígitos, con país)</label>
+        <input id="waNumber" type="tel" placeholder="5076XXXXXXX" />
+      </div>
+      <button id="saveSettings" class="btn-primary">Guardar ajustes</button>
+    </section>
+
+    <section class="card">
+      <h2>Tema</h2>
+      <div class="form-row">
+        <label>Color primario</label>
+        <input id="colorPrimary" type="color" value="#ff6a00" />
+      </div>
+      <div class="form-row">
+        <label>Color secundario</label>
+        <input id="colorSecondary" type="color" value="#222222" />
+      </div>
+      <div class="form-row">
+        <label>Subir fondo (opcional)</label>
+        <input id="bgFile" type="file" accept="image/*" />
+      </div>
+      <button id="saveTheme" class="btn-primary">Guardar tema</button>
+      <small class="hint">El fondo se guarda comprimido.</small>
+    </section>
+
+    <section class="card">
+      <h2>Promos</h2>
+      <div class="form-grid">
+        <select id="promoTab"></select>
+        <input id="promoName" placeholder="Nombre" />
+        <input id="promoPrice" type="number" step="0.01" placeholder="Precio" />
+        <textarea id="promoDesc" placeholder="Descripción"></textarea>
+        <input id="promoImg" type="file" accept="image/*" />
+        <button id="addPromo" class="btn-primary">Añadir promo</button>
+      </div>
+      <div id="promoList" class="list"></div>
+    </section>
+
+    <section class="card">
+      <h2>Combos</h2>
+      <div class="form-grid">
+        <select id="comboTab"></select>
+        <input id="comboName" placeholder="Nombre" />
+        <input id="comboPrice" type="number" step="0.01" placeholder="Precio" />
+        <textarea id="comboDesc" placeholder="Descripción"></textarea>
+        <input id="comboImg" type="file" accept="image/*" />
+        <button id="addCombo" class="btn-primary">Añadir combo</button>
+      </div>
+      <div id="comboList" class="list"></div>
+    </section>
+
+    <section class="card">
+      <h2>Secciones del Menú</h2>
+      <div id="menuSectionsList" class="list"></div>
+      <div class="form-row" style="margin-top:12px; gap:8px;">
+        <input id="newMenuSectionName" placeholder="Nueva sección (opcional)" />
+        <button id="addMenuSection" class="btn">Añadir sección</button>
+        <button id="saveMenuSections" class="btn-primary">Guardar cambios</button>
+      </div>
+      <small class="hint">Renombra, activa/desactiva y reordena con ↑/↓.</small>
+    </section>
+
+    <section class="card">
+      <h2>Menú</h2>
+      <div class="form-grid">
+        <select id="menuSection"></select>
+        <input id="menuName" placeholder="Nombre" />
+        <input id="menuPrice" type="number" step="0.01" placeholder="Precio" />
+        <textarea id="menuDesc" placeholder="Descripción"></textarea>
+        <input id="menuImg" type="file" accept="image/*" />
+        <button id="addMenu" class="btn-primary">Añadir ítem</button>
+      </div>
+      <div id="menuList" class="list"></div>
+    </section>
+
+    <section class="card">
+      <h2>Cupones</h2>
+      <div class="form-grid">
+        <input id="couponCode" placeholder="Código (ej. BIENVENIDO10)" />
+        <input id="couponPercent" type="number" step="1" min="0" max="100" placeholder="% Descuento (opcional)" />
+        <input id="couponAmount" type="number" step="0.01" min="0" placeholder="Descuento fijo $ (opcional)" />
+        <input id="couponMinSubtotal" type="number" step="0.01" min="0" placeholder="Mínimo de compra $ (opcional)" />
+        <input id="couponExpires" type="date" placeholder="Expira (opcional)" />
+        <button id="addCoupon" class="btn-primary">Añadir cupón</button>
+      </div>
+      <div id="couponList" class="list"></div>
+      <small class="hint">El descuento se valida al aplicar en el carrito.</small>
+    </section>
+
+    <section class="card">
+      <h2>Buscar ítems</h2>
+      <div class="form-row">
+        <input id="searchBox" placeholder="Buscar por nombre o descripción..." />
+      </div>
+    </section>
+  </main>
+
+  <script src="storage.js"></script>
+  <script src="imageUtils.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

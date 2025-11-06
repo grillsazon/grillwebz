@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grill & Sazón — Ordena</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="logo.png" alt="Grill & Sazón" style="height:36px;margin-right:8px;vertical-align:middle;border-radius:6px;"/> <h1 id="brandName">Grill & Sazón</h1></div>
+    <nav class="nav">
+      <a href="#promos">Promos</a>
+      <a href="#combos">Combos</a>
+      <a href="#menu">Menú</a>
+      
+    </nav>
+<script id="showAdminLinkScript">
+// Mostrar Admin solo en entorno local (file://)
+if (location.protocol === "file:") {
+  const a=document.createElement("a"); a.href="admin.html"; a.className="admin-link"; a.textContent="Admin"; document.querySelector(".nav").appendChild(a);
+}
+</script>
+    <button id="cartBtn" class="cart-btn">🛒 <span id="cartCount">0</span></button>
+  </header>
+
+  <main class="main">
+    <section id="promos" class="section">
+      <h2>Promos</h2>
+      <div id="promosTabs" class="tabbar"></div>
+      <div class="grid" id="promosGrid"></div>
+    </section>
+
+    <section id="combos" class="section">
+      <h2>Combos</h2>
+      <div id="combosTabs" class="tabbar"></div>
+      <div class="grid" id="combosGrid"></div>
+    </section>
+
+    <section id="menu" class="section">
+      <h2>Menú</h2>
+      <div id="menuTabs" class="tabbar"></div>
+      <div class="grid" id="menuGrid"></div>
+    </section>
+  </main>
+
+  <aside id="cartPanel" class="cart-panel hidden">
+    <div class="cart-header">
+      <h3>Tu carrito</h3>
+      <button id="closeCart">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="form-row" style="flex-direction:row; gap:8px; align-items:center;">
+        <input id="couponInput" placeholder="Cupón" />
+        <button id="applyCoupon" class="btn">Aplicar</button>
+      </div>
+      <div class="cart-total"><span>Descuento:</span><strong id="cartDiscount">$0.00</strong></div>
+      <div class="cart-total"><span>Total:</span><strong id="cartTotal">$0.00</strong></div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button id="clearCartBtn" class="btn">Vaciar carrito</button>
+        <button id="sendWhatsApp" class="btn-primary">Enviar por WhatsApp</button>
+      </div>
+    </div>
+  </aside>
+
+  <script src="storage.js"></script>
+  <script src="seed-public.js"></script>
+  <script src="theme.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
